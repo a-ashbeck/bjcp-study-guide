@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BJCP Beer Tasting Exam Study Guide</title>
+<style>
+  :root {
+    --amber: #D4920B;
+    --amber-light: #F5DEB3;
+    --amber-dark: #8B6914;
+    --stout: #1a1a2e;
+    --foam: #FFF8F0;
+    --pale: #FFFDF7;
+    --copper: #B87333;
+    --red-ale: #A0522D;
+    --success: #2E7D32;
+    --warning: #E65100;
+    --info: #1565C0;
+    --border: #E0D5C5;
+    --text: #2C2C2C;
+    --text-light: #666;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--pale);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, var(--stout) 0%, #2d2d4e 50%, var(--amber-dark) 100%);
+    color: white;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+  .hero .subtitle { font-size: 1.1rem; opacity: 0.85; font-style: italic; }
+  .hero .exam-info {
+    display: flex; gap: 2rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;
+  }
+  .hero .exam-info .badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+  .hero .exam-info .badge strong { color: var(--amber-light); }
+
+  /* Progress tracker */
+  .progress-bar-container {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .progress-bar-container .label {
+    font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.4rem;
+    display: flex; justify-content: space-between;
+  }
+  .progress-track {
+    height: 8px; background: #eee; border-radius: 4px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--amber), var(--copper));
+    border-radius: 4px; transition: width 0.5s ease;
+  }
+
+  /* Navigation */
+  .nav-tabs {
+    display: flex; flex-wrap: wrap; gap: 0; background: white;
+    border-bottom: 2px solid var(--border); padding: 0 1rem;
+    overflow-x: auto;
+  }
+  .nav-tab {
+    padding: 0.8rem 1.2rem; cursor: pointer; font-size: 0.9rem;
+    border: none; background: none; color: var(--text-light);
+    border-bottom: 3px solid transparent; transition: all 0.2s;
+    white-space: nowrap; font-family: inherit;
+  }
+  .nav-tab:hover { color: var(--amber-dark); }
+  .nav-tab.active {
+    color: var(--amber-dark); border-bottom-color: var(--amber);
+    font-weight: 600;
+  }
+
+  /* Content area */
+  .content { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 {
+    font-size: 1.6rem; color: var(--stout); margin-bottom: 1rem;
+    padding-bottom: 0.5rem; border-bottom: 2px solid var(--amber);
+  }
+  h3 {
+    font-size: 1.2rem; color: var(--amber-dark); margin: 1.5rem 0 0.8rem;
+  }
+  h4 { font-size: 1.05rem; color: var(--red-ale); margin: 1rem 0 0.5rem; }
+
+  p { margin-bottom: 1rem; }
+
+  /* Expandable sections */
+  .accordion {
+    border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 0.8rem; overflow: hidden; background: white;
+  }
+  .accordion-header {
+    padding: 1rem 1.2rem; cursor: pointer; display: flex;
+    justify-content: space-between; align-items: center;
+    background: white; border: none; width: 100%;
+    font-size: 1rem; font-family: inherit; color: var(--text);
+    text-align: left; transition: background 0.2s;
+  }
+  .accordion-header:hover { background: var(--foam); }
+  .accordion-header .arrow {
+    transition: transform 0.3s; font-size: 0.8rem; color: var(--amber);
+  }
+  .accordion.open .accordion-header .arrow { transform: rotate(90deg); }
+  .accordion-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  }
+  .accordion.open .accordion-body { max-height: 3000px; }
+  .accordion-content { padding: 0 1.2rem 1.2rem; }
+
+  /* Cards */
+  .card {
+    background: white; border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.2rem 1.5rem; margin-bottom: 1rem;
+  }
+  .card.highlight {
+    border-left: 4px solid var(--amber);
+  }
+  .card.tip {
+    border-left: 4px solid var(--success);
+    background: #f8fdf8;
+  }
+  .card.warning {
+    border-left: 4px solid var(--warning);
+    background: #fff8f5;
+  }
+  .card.info {
+    border-left: 4px solid var(--info);
+    background: #f5f9ff;
+  }
+  .card-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .card.tip .card-label { color: var(--success); }
+  .card.warning .card-label { color: var(--warning); }
+  .card.info .card-label { color: var(--info); }
+
+  /* Score breakdown table */
+  table {
+    width: 100%; border-collapse: collapse; margin: 1rem 0;
+    background: white; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  th {
+    background: var(--stout); color: white; padding: 0.7rem 1rem;
+    text-align: left; font-size: 0.9rem;
+  }
+  td {
+    padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) { background: var(--foam); }
+
+  /* Flashcards */
+  .flashcard-container { perspective: 1000px; margin: 1rem 0; }
+  .flashcard {
+    width: 100%; min-height: 180px; cursor: pointer; position: relative;
+    transform-style: preserve-3d; transition: transform 0.6s;
+    border-radius: 12px;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    border-radius: 12px; display: flex; align-items: center;
+    justify-content: center; padding: 2rem; text-align: center;
+    border: 2px solid var(--border);
+  }
+  .flashcard-front {
+    background: linear-gradient(135deg, white, var(--foam));
+    font-size: 1.15rem; font-weight: 600; color: var(--stout);
+  }
+  .flashcard-back {
+    background: linear-gradient(135deg, var(--stout), #2d2d4e);
+    color: white; transform: rotateY(180deg); font-size: 1rem; line-height: 1.6;
+  }
+  .flashcard-nav {
+    display: flex; justify-content: center; align-items: center; gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .flashcard-nav button {
+    background: var(--amber); color: white; border: none;
+    padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer;
+    font-size: 0.9rem; font-family: inherit;
+  }
+  .flashcard-nav button:hover { background: var(--amber-dark); }
+  .flashcard-nav .counter { font-size: 0.9rem; color: var(--text-light); }
+
+  /* Quiz */
+  .quiz-question {
+    background: white; border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.5rem; margin-bottom: 1.5rem;
+  }
+  .quiz-question p { font-weight: 600; margin-bottom: 1rem; }
+  .quiz-option {
+    display: block; width: 100%; text-align: left; padding: 0.7rem 1rem;
+    border: 1px solid var(--border); border-radius: 6px; margin-bottom: 0.5rem;
+    cursor: pointer; background: white; font-family: inherit; font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .quiz-option:hover { border-color: var(--amber); background: var(--foam); }
+  .quiz-option.correct {
+    border-color: var(--success); background: #e8f5e9; color: var(--success);
+  }
+  .quiz-option.incorrect {
+    border-color: var(--warning); background: #fce4ec; color: var(--warning);
+  }
+  .quiz-option.disabled { pointer-events: none; }
+  .quiz-feedback {
+    margin-top: 0.8rem; padding: 0.8rem; border-radius: 6px;
+    font-size: 0.9rem; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.correct-fb { background: #e8f5e9; color: var(--success); }
+  .quiz-feedback.incorrect-fb { background: #fce4ec; color: var(--warning); }
+  .quiz-score {
+    text-align: center; padding: 1.5rem; background: white;
+    border: 2px solid var(--amber); border-radius: 8px; margin-top: 1rem;
+  }
+
+  /* Checklist */
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.6rem 0;
+    border-bottom: 1px solid #f0ece4;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item input[type="checkbox"] {
+    margin-top: 0.35rem; width: 18px; height: 18px; accent-color: var(--amber);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .checklist-item label { cursor: pointer; }
+  .checklist-item.checked label {
+    text-decoration: line-through; color: var(--text-light);
+  }
+
+  /* Timer */
+  .timer-widget {
+    background: white; border: 2px solid var(--amber); border-radius: 12px;
+    padding: 1.5rem; text-align: center; margin: 1.5rem 0;
+  }
+  .timer-display {
+    font-size: 3rem; font-weight: 700; color: var(--stout);
+    font-variant-numeric: tabular-nums; margin: 0.5rem 0;
+  }
+  .timer-label { font-size: 0.85rem; color: var(--text-light); }
+  .timer-buttons { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1rem; }
+  .timer-btn {
+    padding: 0.5rem 1.5rem; border-radius: 6px; border: none;
+    cursor: pointer; font-size: 0.9rem; font-family: inherit;
+  }
+  .timer-btn.primary { background: var(--amber); color: white; }
+  .timer-btn.primary:hover { background: var(--amber-dark); }
+  .timer-btn.secondary { background: #eee; color: var(--text); }
+  .timer-btn.secondary:hover { background: #ddd; }
+
+  /* Countdown */
+  .countdown {
+    background: linear-gradient(135deg, var(--stout), #2d2d4e);
+    color: white; border-radius: 12px; padding: 1.5rem;
+    text-align: center; margin: 1.5rem 0;
+  }
+  .countdown-number { font-size: 2.5rem; font-weight: 700; color: var(--amber-light); }
+  .countdown-label { font-size: 0.9rem; opacity: 0.8; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.6rem; }
+    .hero .exam-info { flex-direction: column; gap: 0.5rem; }
+    .nav-tab { padding: 0.6rem 0.8rem; font-size: 0.8rem; }
+    .content { padding: 1.5rem 1rem; }
+    .timer-display { font-size: 2.2rem; }
+  }
+
+  /* Print-friendly */
+  @media print {
+    .progress-bar-container, .nav-tabs, .timer-widget, .flashcard-nav { display: none; }
+    .section { display: block !important; page-break-inside: avoid; }
+    .accordion-body { max-height: none !important; }
+    .hero { background: white; color: black; border-bottom: 3px solid black; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>BJCP Beer Tasting Exam</h1>
+  <div class="subtitle">Study Guide &mdash; Target: Certified Rank (70+)</div>
+  <div class="exam-info">
+    <div class="badge"><strong>Exam Date:</strong> July 18, 2026</div>
+    <div class="badge"><strong>Format:</strong> 6 beers / 90 minutes</div>
+    <div class="badge"><strong>Goal:</strong> Certified (70%+)</div>
+    <div class="badge" id="countdown-badge"><strong>Days Left:</strong> <span id="days-left"></span></div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-container">
+  <div class="label">
+    <span>Study Progress</span>
+    <span id="progress-pct">0%</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-tabs" id="nav-tabs">
+  <button class="nav-tab active" data-tab="overview">Overview</button>
+  <button class="nav-tab" data-tab="scoresheet">The Scoresheet</button>
+  <button class="nav-tab" data-tab="perception">Perception</button>
+  <button class="nav-tab" data-tab="faults">Off-Flavors &amp; Faults</button>
+  <button class="nav-tab" data-tab="styles">Style Knowledge</button>
+  <button class="nav-tab" data-tab="writing">Writing &amp; Feedback</button>
+  <button class="nav-tab" data-tab="practice">Practice Tools</button>
+  <button class="nav-tab" data-tab="plan">Study Plan</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<!-- ==================== OVERVIEW ==================== -->
+<div class="section active" id="sec-overview">
+  <h2>Exam Overview</h2>
+
+  <p>The BJCP Beer Judging (Tasting) Exam is a closed-book, proctored exam where you judge <strong>six beers in 90 minutes</strong> using standard BJCP scoresheets. Since you've already passed the online entrance exam, this is your path to Certified rank.</p>
+
+  <h3>What You Need to Achieve</h3>
+  <div class="card highlight">
+    <p>To earn <strong>Certified</strong> rank from the start, you need a combined score of <strong>70% or higher</strong>. At this level, graders expect at least three of six beers to be accurately evaluated with scoresheets showing reasonably good completeness, descriptive ability, and feedback.</p>
+  </div>
+
+  <h3>How Each Beer Is Graded (100 points per beer)</h3>
+  <table>
+    <tr><th>Component</th><th>Points</th><th>What It Measures</th></tr>
+    <tr><td><strong>Scoring Accuracy</strong></td><td>20</td><td>How close your numeric score is to the consensus score</td></tr>
+    <tr><td><strong>Perception</strong></td><td>20</td><td>Can you detect what's actually in the beer? Flaws, characteristics, intensities.</td></tr>
+    <tr><td><strong>Descriptive Ability</strong></td><td>20</td><td>Can you describe what you perceive using appropriate vocabulary?</td></tr>
+    <tr><td><strong>Completeness</strong></td><td>20</td><td>Did you fill out every section thoroughly? No blank areas.</td></tr>
+    <tr><td><strong>Feedback</strong></td><td>20</td><td>Constructive suggestions for the brewer&mdash;what's good, what to improve, and how.</td></tr>
+  </table>
+
+  <div class="card tip">
+    <div class="card-label">Key Insight</div>
+    <p>Only 20 of 100 points are about getting the <em>number</em> right. The other 80 points are about how well you <em>write</em>. You can earn Certified with good writing even if your scores are slightly off.</p>
+  </div>
+
+  <h3>Score Ranges &amp; What They Mean</h3>
+  <table>
+    <tr><th>Range</th><th>Rank</th><th>Description</th></tr>
+    <tr><td>60&ndash;69</td><td>Recognized</td><td>Basic ability; some significant gaps in perception or writing</td></tr>
+    <tr><td>70&ndash;79</td><td>Certified</td><td>At least 3 of 6 beers well evaluated; reasonably complete, descriptive, accurate</td></tr>
+    <tr><td>80&ndash;89</td><td>National*</td><td>Strong evaluations; 4+ beers accurate; minimal errors</td></tr>
+    <tr><td>90&ndash;100</td><td>National*</td><td>Excellent across the board; 5+ beers nailed</td></tr>
+  </table>
+  <p style="font-size:0.85rem;color:var(--text-light);">*National rank also requires 20+ experience points and passing the written proficiency exam.</p>
+
+  <h3>The 90-Minute Clock</h3>
+  <div class="card info">
+    <div class="card-label">Time Management</div>
+    <p>90 minutes &divide; 6 beers = <strong>15 minutes per beer</strong>. This is tight. You need a systematic approach&mdash;spending roughly 3&ndash;4 minutes tasting and 10&ndash;11 minutes writing. Practice with a timer is essential.</p>
+  </div>
+</div>
+
+<!-- ==================== SCORESHEET ==================== -->
+<div class="section" id="sec-scoresheet">
+  <h2>The BJCP Scoresheet</h2>
+  <p>The scoresheet is your exam paper. Knowing it inside and out is non-negotiable. Here's every section, what to write, and the points each section carries on the actual 50-point beer score.</p>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Aroma (12 points)</strong> &mdash; The largest descriptive section</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>What to Evaluate</h4>
+      <p><strong>Malt:</strong> Describe character (bready, biscuity, caramel, toasty, roasty, chocolate, coffee, etc.) and intensity (low, moderate, high).</p>
+      <p><strong>Hops:</strong> Describe character (floral, citrus, piney, herbal, spicy, tropical, dank, etc.) and intensity. Note if absent when expected.</p>
+      <p><strong>Fermentation/Yeast:</strong> Esters (fruity), phenols (spicy, smoky, clove-like), clean/neutral. Note any off-characters.</p>
+      <p><strong>Other:</strong> Note anything else&mdash;alcohol warmth, DMS, diacetyl, oxidation, infection, adjuncts, spices, fruit, barrel character.</p>
+      <h4>Writing Template</h4>
+      <div class="card highlight">
+        <p><em>"[Intensity] [malt character] malt aroma with [intensity] [hop character] hop aroma. [Yeast character] is [intensity]. [Any off-flavors or additional notes]. No [expected characteristic if absent]. Overall aroma is [clean/complex/simple]."</em></p>
+      </div>
+      <h4>Common Mistakes</h4>
+      <ul style="margin-left:1.2rem;margin-bottom:0.5rem;">
+        <li>Leaving hops blank instead of writing "No hop aroma detected"</li>
+        <li>Forgetting to comment on yeast character</li>
+        <li>Not noting intensity levels&mdash;just saying "malty" instead of "moderate caramel malt"</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Appearance (3 points)</strong> &mdash; Small point value, easy to fill completely</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>What to Evaluate</h4>
+      <p><strong>Color:</strong> Use SRM descriptors (straw, gold, amber, copper, brown, dark brown, black) and note specific shade.</p>
+      <p><strong>Clarity:</strong> Brilliant, clear, slight haze, hazy, opaque. Note if appropriate or not for style.</p>
+      <p><strong>Head:</strong> Color (white, off-white, tan, brown), size (none, small, moderate, large), retention (poor, moderate, good, excellent), texture (thin, creamy, rocky, mousse-like).</p>
+      <p><strong>Carbonation:</strong> Visible carbonation level from bubble streams.</p>
+      <h4>Writing Template</h4>
+      <div class="card highlight">
+        <p><em>"Pours [color], [clarity]. [Size] [color] head with [retention] retention and [texture] texture. [Carbonation observation]. [Lacing if notable]."</em></p>
+      </div>
+      <div class="card tip">
+        <div class="card-label">Tip</div>
+        <p>Appearance is only 3 points on the scoresheet but it's easy completeness points on your exam evaluation. Never skip it or write just one word.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Flavor (20 points)</strong> &mdash; The most heavily weighted section</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>What to Evaluate</h4>
+      <p><strong>Malt flavor:</strong> Same descriptors as aroma, but as tasted. Note sweetness level (dry, off-dry, medium, sweet).</p>
+      <p><strong>Hop flavor:</strong> Character and intensity, distinct from bitterness.</p>
+      <p><strong>Hop bitterness:</strong> Low, moderate, high, assertive. How does it relate to malt? Balanced, malt-forward, hop-forward?</p>
+      <p><strong>Fermentation character:</strong> Ester and phenol flavors, alcohol, any yeast-derived qualities.</p>
+      <p><strong>Balance:</strong> How do the elements work together? This is critical to demonstrate.</p>
+      <p><strong>Finish:</strong> Dry, semi-dry, medium, sweet? Clean, lingering bitterness, malty aftertaste?</p>
+      <p><strong>Off-flavors:</strong> Identify any and note their intensity.</p>
+      <h4>Writing Template</h4>
+      <div class="card highlight">
+        <p><em>"[Intensity] [malt character] malt flavor with [sweetness level]. [Intensity] [hop character] hop flavor. Bitterness is [level], providing a [balance description]. [Fermentation character]. Finish is [description]. [Any off-flavors]. [Balance statement]."</em></p>
+      </div>
+      <h4>Critical for Certified Level</h4>
+      <p>You must address <strong>all</strong> of the above sub-components. Leaving out balance or finish will cost you completeness AND feedback points. Write at least 4&ndash;5 sentences here.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Mouthfeel (5 points)</strong> &mdash; Often under-written by new judges</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>What to Evaluate</h4>
+      <p><strong>Body:</strong> Light, medium-light, medium, medium-full, full.</p>
+      <p><strong>Carbonation:</strong> Low, moderate, high, prickly, spritzy, champagne-like.</p>
+      <p><strong>Warmth/Alcohol:</strong> Note presence and whether appropriate for style and stated ABV.</p>
+      <p><strong>Creaminess/Astringency:</strong> Silky, creamy, oily, thin, astringent, tannic.</p>
+      <p><strong>Other:</strong> Prickle from spices, acidity/tartness as mouthfeel, residual sweetness as body.</p>
+      <h4>Writing Template</h4>
+      <div class="card highlight">
+        <p><em>"[Body level] body with [carbonation level] carbonation. [Texture descriptors]. [Alcohol presence]. [Any astringency or other tactile sensations]. Appropriate/inappropriate for style."</em></p>
+      </div>
+      <div class="card warning">
+        <div class="card-label">Common Pitfall</div>
+        <p>Astringency goes in Mouthfeel (it's a tactile sensation), not Flavor. Sourness/tartness is a flavor, but the puckering sensation can be noted in Mouthfeel as well. Putting things in the wrong section costs perception points.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Overall Impression (10 points)</strong> &mdash; Your summary and brewer feedback</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>What to Include</h4>
+      <p><strong>Style accuracy:</strong> Does the beer fit the declared style? What's on target, what's off?</p>
+      <p><strong>Strengths:</strong> What does the brewer do well?</p>
+      <p><strong>Weaknesses:</strong> What could be improved?</p>
+      <p><strong>Actionable suggestions:</strong> How can the brewer fix issues? This is where feedback points live.</p>
+      <p><strong>Enjoyability:</strong> A personal note on overall drinkability and pleasure.</p>
+      <h4>Writing Template</h4>
+      <div class="card highlight">
+        <p><em>"This is a [quality assessment] example of [style]. [Strength statement]. [Weakness statement]. To improve, [specific actionable brewing suggestion]. [Enjoyability comment]."</em></p>
+      </div>
+      <div class="card tip">
+        <div class="card-label">Certified-Level Expectation</div>
+        <p>Always provide at least one specific, actionable brewing suggestion&mdash;e.g., "Lower mash temperature to 148&deg;F to achieve a drier finish" rather than just "too sweet." This is the difference between Recognized and Certified feedback.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <h3>Numeric Scoring Guide</h3>
+  <table>
+    <tr><th>Score Range</th><th>Descriptor</th><th>Meaning</th></tr>
+    <tr><td>5&ndash;13</td><td>Problematic</td><td>Major flaws, significant off-flavors, barely recognizable as style</td></tr>
+    <tr><td>14&ndash;20</td><td>Fair</td><td>Noticeable flaws but drinkable; misses style targets</td></tr>
+    <tr><td>21&ndash;29</td><td>Good</td><td>Minor flaws; recognizable as style; some room for improvement</td></tr>
+    <tr><td>30&ndash;37</td><td>Very Good</td><td>On style; minor quibbles; well-made beer</td></tr>
+    <tr><td>38&ndash;44</td><td>Excellent</td><td>Exemplary; nails the style; could win competitions</td></tr>
+    <tr><td>45&ndash;50</td><td>Outstanding</td><td>World-class; flawless example of style (very rare)</td></tr>
+  </table>
+</div>
+
+<!-- ==================== PERCEPTION ==================== -->
+<div class="section" id="sec-perception">
+  <h2>Perception &amp; Sensory Skills</h2>
+  <p>Perception is worth 20 points per beer on the exam. It measures whether you can actually detect what's in the beer. This is a skill that must be trained through deliberate tasting practice.</p>
+
+  <h3>The Sensory Evaluation Process</h3>
+  <div class="card info">
+    <div class="card-label">Systematic Approach</div>
+    <p>Always evaluate in order: <strong>Appearance &rarr; Aroma &rarr; Flavor &rarr; Mouthfeel</strong>. Start with appearance while the head is fresh. Take several short sniffs for aroma (don't plunge your nose in and sniff once). Take a moderate sip, let it coat your palate, then swallow and note the finish.</p>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Training Your Nose</strong> &mdash; Aroma perception techniques</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Short sniffs:</strong> Take 2&ndash;3 quick, short sniffs rather than one long inhale. Your olfactory receptors fatigue in about 3 seconds.</p>
+      <p><strong>Cover and swirl:</strong> Cover the glass with your hand, swirl gently, then sniff. This concentrates volatile aromatics.</p>
+      <p><strong>Retronasal:</strong> After sipping, exhale through your nose with your mouth closed. This catches aromas you miss by sniffing alone.</p>
+      <p><strong>Rest between beers:</strong> Sniff the back of your hand or your sleeve to "reset" between samples. During the exam, move to the next beer if you feel fatigued.</p>
+      <p><strong>Practice at home:</strong> Smell common ingredients&mdash;fresh hops, crushed grain, fruit&mdash;to build your reference library. Spice racks are excellent training tools.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Flavor Perception Map</strong> &mdash; Where you taste what</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p>The old "tongue map" is mostly debunked&mdash;you can detect all tastes across most of your tongue. However, some practical notes:</p>
+      <p><strong>Sweetness:</strong> Perceived across the palate; note initial impression vs. finish.</p>
+      <p><strong>Bitterness:</strong> Often most apparent at the back of the tongue and in the aftertaste. It accumulates with each sip.</p>
+      <p><strong>Sourness/Acidity:</strong> Causes salivation; felt on the sides of the tongue.</p>
+      <p><strong>Astringency:</strong> A drying, puckering sensation in the mouth (tactile, not taste&mdash;goes in Mouthfeel).</p>
+      <p><strong>Carbonation bite:</strong> The "sting" from CO2; distinct from hop bitterness.</p>
+      <h4>Intensity Descriptors (Use These Consistently)</h4>
+      <p>None &rarr; Faint/Slight &rarr; Low &rarr; Moderate-Low &rarr; Moderate &rarr; Moderate-High &rarr; High &rarr; Very High</p>
+      <div class="card tip">
+        <div class="card-label">Exam Tip</div>
+        <p>Always pair a characteristic with an intensity. "Caramel malt" is vague; "moderate caramel malt" tells the grader you calibrated what you're perceiving.</p>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Palate Calibration</strong> &mdash; Getting your scores in the right range</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p>Scoring accuracy (20 pts per beer) requires you to assign numeric scores that align with consensus. Here's how to calibrate:</p>
+      <p><strong>Anchor to 30:</strong> An average homebrew competition entry with no major flaws scores around 30. Start there and adjust.</p>
+      <p><strong>Deduct for flaws:</strong> Each noticeable flaw (diacetyl, oxidation, off-target style) might drop the score 2&ndash;5 points depending on severity.</p>
+      <p><strong>Add for excellence:</strong> Beers that nail the style with complexity and balance climb above 35.</p>
+      <p><strong>Use the full range:</strong> Don't cluster everything between 28&ndash;34. If a beer is flawed, score it in the teens or twenties. If it's great, go above 38.</p>
+      <div class="card warning">
+        <div class="card-label">Common Error</div>
+        <p>Palate fatigue during the exam causes scores to compress toward the middle as you progress. Consciously recalibrate after beer 3 or 4. Take a sip of water and a deep breath.</p>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ==================== OFF-FLAVORS ==================== -->
+<div class="section" id="sec-faults">
+  <h2>Off-Flavors &amp; Faults</h2>
+  <p>Detecting and correctly identifying off-flavors is core to the perception score. You need to know what causes them and suggest remedies (for the feedback score). These are the most commonly encountered faults.</p>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Diacetyl</strong> &mdash; Butter / Butterscotch</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Perception:</strong> Artificial butter, butterscotch, or toffee aroma/flavor. At higher levels, a slippery or oily mouthfeel.</p>
+      <p><strong>Detection Tip:</strong> Warm the sample slightly in your hands; diacetyl becomes more apparent as the beer warms. Also check the finish&mdash;it often lingers as a buttery coating.</p>
+      <p><strong>Causes:</strong> Premature separation from yeast, insufficient diacetyl rest, bacterial contamination (Pediococcus), unhealthy or insufficient yeast.</p>
+      <p><strong>Brewing Fix:</strong> "Perform a diacetyl rest at 65&ndash;68&deg;F for 2&ndash;3 days near the end of primary fermentation before crashing or packaging."</p>
+      <p><strong>Acceptable in:</strong> Low levels in some English ales, Czech lagers (very low), and certain Scottish ales.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Oxidation</strong> &mdash; Wet Cardboard / Paper / Sherry</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Perception:</strong> Wet cardboard, papery, stale bread at lower levels. Can progress to sherry-like, honey, or winey notes in aged/higher-ABV beers.</p>
+      <p><strong>Detection Tip:</strong> Most apparent in the aroma. Take a big initial sniff before the beer warms; cardboard character is often the first thing to appear.</p>
+      <p><strong>Causes:</strong> Oxygen exposure post-fermentation (hot-side oxidation during mash is debated). Poor transfers, headspace air, bad seals.</p>
+      <p><strong>Brewing Fix:</strong> "Minimize oxygen exposure during transfers and packaging. Purge kegs/bottles with CO2 before filling. Limit headspace."</p>
+      <p><strong>Acceptable in:</strong> Some aged strong ales, barleywines (sherry-like). Never acceptable as cardboard.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Acetaldehyde</strong> &mdash; Green Apple / Latex Paint</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Perception:</strong> Fresh-cut green apple, sometimes cidery, green leaves, or latex paint at high levels.</p>
+      <p><strong>Detection Tip:</strong> Most noticeable in lighter beers. Check aroma and early flavor before bitterness masks it.</p>
+      <p><strong>Causes:</strong> Green (young) beer, premature packaging before yeast can convert acetaldehyde to ethanol. Oxidation can also reverse ethanol back to acetaldehyde.</p>
+      <p><strong>Brewing Fix:</strong> "Allow sufficient conditioning time. Do not package too early&mdash;let primary fermentation complete fully before cold crashing or bottling."</p>
+      <p><strong>Acceptable in:</strong> Some American light lagers at very low levels. Generally a fault.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>DMS (Dimethyl Sulfide)</strong> &mdash; Cooked Corn / Cabbage</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Perception:</strong> Cooked corn, creamed corn, cooked vegetables (celery, cabbage, parsnip). At extreme levels, shellfish-like.</p>
+      <p><strong>Detection Tip:</strong> Most noticeable in the aroma. Cover and swirl the glass, then take a quick sniff. More obvious in lighter-colored beers.</p>
+      <p><strong>Causes:</strong> S-methyl methionine (SMM) in pale malt converted to DMS by heat. Covered boils, slow cooling, and insufficient boil vigor fail to drive it off.</p>
+      <p><strong>Brewing Fix:</strong> "Ensure a vigorous, uncovered rolling boil for at least 60 minutes and rapidly chill wort post-boil."</p>
+      <p><strong>Acceptable in:</strong> Very low levels in some American and light lagers.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Phenolic (Chlorophenol / Band-Aid / Medicinal)</strong></span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Perception:</strong> Band-Aid, plastic, medicinal, smoky, or chlorine-like. Distinct from desirable phenols (clove, pepper) in Belgian/German wheat beers.</p>
+      <p><strong>Detection Tip:</strong> Chlorophenols are extremely potent&mdash;detectable at parts per billion. A medicinal or plastic note in a beer that shouldn't have phenols is a clear fault.</p>
+      <p><strong>Causes:</strong> Chlorinated water reacting with phenols, wild yeast contamination, excessive use of chlorine-based sanitizer, certain grain husks.</p>
+      <p><strong>Brewing Fix:</strong> "Use campden tablets (potassium metabisulfite) to treat chlorinated water, or switch to reverse osmosis water. Review sanitation practices."</p>
+      <p><strong>Acceptable in:</strong> Never (as chlorophenol). Clove/pepper phenols are expected in Weizen, Saison, Belgian styles.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>More Faults:</strong> Astringency, Light-Struck, Acetic, Fusel Alcohols, Infection</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>Astringency</h4>
+      <p><strong>Perception:</strong> Dry, puckering, grape-skin-like sensation (mouthfeel). Like over-steeped tea.</p>
+      <p><strong>Causes:</strong> Over-sparging, high mash pH, over-crushing grain, boiling grain, excessive hopping.</p>
+      <p><strong>Fix:</strong> "Monitor mash pH (target 5.2&ndash;5.6). Stop sparging when runnings reach 1.010 or pH rises above 5.8."</p>
+
+      <h4>Light-Struck (Skunky)</h4>
+      <p><strong>Perception:</strong> Skunk spray, sulfury, marijuana-like.</p>
+      <p><strong>Causes:</strong> UV light exposure reacting with iso-alpha acids from hops. Clear and green glass bottles are most vulnerable.</p>
+      <p><strong>Fix:</strong> "Store and package in brown bottles or cans. Avoid light exposure throughout the process."</p>
+
+      <h4>Acetic Acid (Vinegar)</h4>
+      <p><strong>Perception:</strong> Vinegar, sharp sourness.</p>
+      <p><strong>Causes:</strong> Acetobacter contamination (requires oxygen). Infected equipment.</p>
+      <p><strong>Fix:</strong> "Minimize oxygen post-fermentation. Review sanitation of all equipment. Replace scratched plastic."</p>
+
+      <h4>Fusel Alcohols (Solvent / Hot)</h4>
+      <p><strong>Perception:</strong> Harsh alcohol burn, solvent-like, warming beyond what ABV suggests.</p>
+      <p><strong>Causes:</strong> High fermentation temperatures, under-pitching yeast, excessive simple sugars.</p>
+      <p><strong>Fix:</strong> "Control fermentation temperature. Pitch adequate yeast. Limit adjunct sugars to under 20% of grist."</p>
+
+      <h4>Infection (Lactic, Ropiness, Pellicle)</h4>
+      <p><strong>Perception:</strong> Sourness (lactic), ropey/viscous texture, barnyard funk.</p>
+      <p><strong>Causes:</strong> Lactobacillus, Brettanomyces, or Pediococcus contamination. Poor sanitation.</p>
+      <p><strong>Fix:</strong> "Replace all plastic and rubber components. Deep clean and sanitize. Consider replacing tubing and gaskets."</p>
+    </div></div>
+  </div>
+</div>
+
+<!-- ==================== STYLES ==================== -->
+<div class="section" id="sec-styles">
+  <h2>Style Knowledge</h2>
+  <p>You won't be told the styles in advance, but you need to evaluate each beer against its declared style. Broad familiarity with the BJCP Style Guidelines is essential&mdash;you don't need to memorize every number, but you need to know what makes each style family distinctive.</p>
+
+  <div class="card info">
+    <div class="card-label">What to Study</div>
+    <p>Focus on the <strong>2021 BJCP Beer Style Guidelines</strong>. For each style you study, know: typical aroma, appearance, flavor, mouthfeel, the key differentiators from similar styles, vital statistics (OG, FG, IBU, SRM, ABV ranges), and common commercial examples.</p>
+  </div>
+
+  <h3>High-Probability Exam Style Families</h3>
+  <p>Exam beers are typically homebrewed and span a range of quality and styles. These families appear frequently:</p>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>American Ales</strong> &mdash; Pale Ale, IPA, Amber, Brown</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Key traits:</strong> American hop character (citrus, pine, tropical, floral), clean fermentation, moderate-to-high bitterness, generally dry finish.</p>
+      <p><strong>Differentiators:</strong> Pale Ale is moderate; IPA is hop-forward with higher bitterness/ABV; Amber shows more caramel malt balance; Brown Ale emphasizes malt with chocolate/nutty notes.</p>
+      <p><strong>Watch for:</strong> Hop burn vs. actual bitterness, citrusy oxidation masking as hop character, overabundance of crystal malt sweetness.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>English Ales</strong> &mdash; Bitter, ESB, Porter, Stout</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Key traits:</strong> English hop character (earthy, herbal, floral), fruity esters from English yeast, malt-forward balance, moderate bitterness, lower carbonation.</p>
+      <p><strong>Differentiators:</strong> Ordinary Bitter is session-strength and balanced; ESB is fuller and more pronounced; Porter is dark with chocolate/toffee; Stout adds roast character.</p>
+      <p><strong>Watch for:</strong> Low diacetyl is sometimes acceptable. English yeast esters (pear, stone fruit) are expected, not faults. Don't confuse proper English malt character with sweetness flaws.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>German/Czech Lagers</strong> &mdash; Pilsner, Helles, Dunkel, Bock</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Key traits:</strong> Clean fermentation (lager yeast), noble hop character (floral, spicy, herbal), malt prominence varies by style, crisp finish.</p>
+      <p><strong>Differentiators:</strong> Pils is hop-forward and crisp; Helles is soft and malt-accented; Dunkel is Munich malt-rich with bread/toast; Bock is strong and malty.</p>
+      <p><strong>Watch for:</strong> DMS (common homebrew lager fault), acetaldehyde from rushed lagering, diacetyl from incomplete conditioning, sulfur (normal in young lagers, should dissipate).</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Belgian &amp; Wheat Beers</strong> &mdash; Wit, Saison, Dubbel, Tripel</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Key traits:</strong> Expressive yeast character (esters and phenols), complex fermentation profiles, often higher attenuation, spicy/fruity.</p>
+      <p><strong>Differentiators:</strong> Wit is light with coriander and orange peel, hazy; Saison is dry, peppery, fruity; Dubbel is malty, dark fruit, moderate; Tripel is strong, pale, dry, complex.</p>
+      <p><strong>Watch for:</strong> Phenols here are EXPECTED (clove, pepper)&mdash;don't call them faults. Fusel alcohols are more common in higher-ABV Belgian styles. High attenuation means thin body is not always a flaw.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Other Common Exam Styles</strong> &mdash; Wheat, Scottish, Specialty</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>American Wheat:</strong> Clean, light, low bitterness, wheat provides haze and soft body. Not phenolic like a Hefeweizen.</p>
+      <p><strong>Hefeweizen:</strong> Banana (isoamyl acetate) and clove (4-vinyl guaiacol) are the signature. Hazy, low bitterness, wheat tartness.</p>
+      <p><strong>Scottish Ales:</strong> Malt-focused, very low hopping, possible light caramel/toffee, clean, low esters. NOT smoky (common misconception).</p>
+      <p><strong>Specialty/Fruit/Spice:</strong> Must still taste like beer. The base style should be identifiable. Specialty ingredients should complement, not overwhelm.</p>
+    </div></div>
+  </div>
+
+  <div class="card tip">
+    <div class="card-label">Study Strategy</div>
+    <p>Don't try to memorize all 100+ sub-styles. Instead, learn the <strong>key parameters that differentiate similar styles</strong> (e.g., what separates a Dunkel from a Schwarzbier, or an English IPA from an American IPA). When you sit down with an exam beer, you need to evaluate it against the declared style, not recall stats from memory.</p>
+  </div>
+</div>
+
+<!-- ==================== WRITING ==================== -->
+<div class="section" id="sec-writing">
+  <h2>Writing &amp; Feedback</h2>
+  <p>60 of your 100 points per beer come from Descriptive Ability, Completeness, and Feedback. Strong writing can compensate for imperfect perception. Here's how to write scoresheets that score well.</p>
+
+  <h3>Descriptive Ability (20 pts)</h3>
+  <div class="card highlight">
+    <p>Use <strong>specific, sensory language</strong>. Don't say "malty"&mdash;say "moderate bready and lightly toasty malt character with a hint of caramel." Don't say "hoppy"&mdash;say "moderate-high citrus and pine hop aroma, reminiscent of Cascade or Centennial."</p>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Vocabulary Builder</strong> &mdash; Descriptors for every section</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <h4>Malt Descriptors</h4>
+      <p>Bready, biscuity, cracker-like, grainy, doughy, Pilsner-like, toasty, caramel, toffee, brown sugar, molasses, treacle, chocolate, cocoa, coffee, roasty, burnt, acrid, nutty, honey-like.</p>
+      <h4>Hop Aroma/Flavor Descriptors</h4>
+      <p>Floral, perfumy, rose-like, herbal, grassy, tea-like, spicy, peppery, citrus (grapefruit, orange, lemon, tangerine), tropical (mango, passion fruit, guava, papaya), stone fruit (peach, apricot), piney, resinous, dank, catty, onion/garlic (thiol), berry-like.</p>
+      <h4>Yeast/Fermentation Descriptors</h4>
+      <p>Clean, neutral, fruity esters (banana, pear, apple, stone fruit, berry), spicy phenols (clove, pepper, allspice), bubblegum, solvent, rose, honey, bready yeast, sulfury.</p>
+      <h4>Mouthfeel Descriptors</h4>
+      <p>Thin, light, medium, full, heavy, watery, crisp, smooth, creamy, silky, oily, coating, prickly, spritzy, effervescent, warming, hot, astringent, dry, slick.</p>
+      <h4>Balance Descriptors</h4>
+      <p>Even, malt-forward, hop-forward, bitter-dominated, sweet-dominated, dry, well-integrated, disjointed, one-dimensional, complex, layered, harmonious.</p>
+    </div></div>
+  </div>
+
+  <h3>Completeness (20 pts)</h3>
+  <div class="card info">
+    <div class="card-label">The Completeness Checklist</div>
+    <p>Every section of every scoresheet must have substantive comments&mdash;at minimum 2&ndash;3 sentences for Aroma and Flavor, and at least 1&ndash;2 sentences for Appearance, Mouthfeel, and Overall. Blank sections are the fastest way to lose points. Even if you detect nothing remarkable, write something: "Clean, no off-aromas detected. Aroma is somewhat neutral, consistent with style expectations."</p>
+  </div>
+
+  <h3>Feedback (20 pts)</h3>
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Writing Great Feedback</strong> &mdash; The formula for actionable suggestions</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p>Feedback can appear in any section but is most concentrated in Overall Impression. Use this pattern:</p>
+      <h4>The Feedback Formula</h4>
+      <div class="card highlight">
+        <p><strong>1. Name the issue</strong> &rarr; <strong>2. Identify likely cause</strong> &rarr; <strong>3. Suggest a specific fix</strong></p>
+        <p><em>Example: "Noticeable diacetyl (butter) in the finish, likely from incomplete conditioning. Consider adding a 2&ndash;3 day diacetyl rest at 65&deg;F before cold crashing to allow the yeast to reabsorb this compound."</em></p>
+      </div>
+      <h4>Good vs. Bad Feedback Examples</h4>
+      <p><strong>Bad:</strong> "Too sweet."</p>
+      <p><strong>Good:</strong> "Residual sweetness is higher than expected for style. Consider mashing at a lower temperature (148&deg;F vs. 154&deg;F) to produce a more fermentable wort, or pitching a more attenuative yeast strain."</p>
+      <p><strong>Bad:</strong> "Needs more hops."</p>
+      <p><strong>Good:</strong> "Hop bitterness is below style range. Consider increasing bittering addition to achieve 40&ndash;50 IBU, or adding a late-boil or whirlpool addition for more hop flavor and aroma complexity."</p>
+      <h4>Don't Forget Positive Feedback</h4>
+      <p>Always acknowledge what the brewer did well. "Excellent malt complexity with clean fermentation&mdash;very well-made base beer" shows you can recognize quality, not just faults.</p>
+    </div></div>
+  </div>
+
+  <h3>Time-Saving Writing Strategies</h3>
+  <div class="card tip">
+    <div class="card-label">Exam Day Writing Tips</div>
+    <p><strong>Abbreviate intelligently:</strong> "mod" for moderate, "sl" for slight, "w/" for with. Graders understand common abbreviations.</p>
+    <p><strong>Use your templates:</strong> Memorize the structure for each section so you're not thinking about what to write&mdash;just what you perceive.</p>
+    <p><strong>Don't write novels:</strong> Quality over quantity. Three precise, descriptive sentences beat six vague ones.</p>
+    <p><strong>Write Appearance first while the head is fresh, then move to Aroma while aromas are still volatile.</strong></p>
+  </div>
+</div>
+
+<!-- ==================== PRACTICE ==================== -->
+<div class="section" id="sec-practice">
+  <h2>Practice Tools</h2>
+
+  <h3>15-Minute Scoresheet Timer</h3>
+  <p>Use this to simulate exam conditions. You get 15 minutes per beer.</p>
+  <div class="timer-widget">
+    <div class="timer-label">Time Remaining</div>
+    <div class="timer-display" id="timer-display">15:00</div>
+    <div class="timer-label" id="timer-beer-label">Beer 1 of 6</div>
+    <div class="timer-buttons">
+      <button class="timer-btn primary" id="timer-start" onclick="toggleTimer()">Start</button>
+      <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+      <button class="timer-btn secondary" onclick="nextBeer()">Next Beer &rarr;</button>
+    </div>
+  </div>
+
+  <h3>Off-Flavor Flashcards</h3>
+  <p>Click the card to flip it. Learn to associate each off-flavor with its cause and fix.</p>
+  <div class="flashcard-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="flashcard-face flashcard-front" id="fc-front"></div>
+      <div class="flashcard-face flashcard-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="flashcard-nav">
+    <button onclick="prevCard()">&larr; Prev</button>
+    <span class="counter" id="fc-counter">1 / 10</span>
+    <button onclick="nextCard()">Next &rarr;</button>
+    <button onclick="shuffleCards()">Shuffle</button>
+  </div>
+
+  <h3>Quick Self-Quiz</h3>
+  <div id="quiz-container"></div>
+  <div class="quiz-score" id="quiz-score" style="display:none;"></div>
+  <div style="text-align:center;margin-top:1rem;">
+    <button class="timer-btn primary" onclick="resetQuiz()">Reset Quiz</button>
+  </div>
+
+  <h3>Practice Session Checklist</h3>
+  <p>Use this checklist each time you sit down to practice evaluating a beer:</p>
+  <div class="card">
+    <div class="checklist-item"><input type="checkbox" id="ck1" onchange="toggleCheck(this)"><label for="ck1">Poured beer properly, observed head formation</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck2" onchange="toggleCheck(this)"><label for="ck2">Noted color, clarity, head (retention, color, texture)</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck3" onchange="toggleCheck(this)"><label for="ck3">Took 2&ndash;3 short sniffs, covered &amp; swirled, sniffed again</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck4" onchange="toggleCheck(this)"><label for="ck4">Noted malt, hop, yeast, and other aromas with intensities</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck5" onchange="toggleCheck(this)"><label for="ck5">Took moderate sip, coated palate, noted initial flavor</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck6" onchange="toggleCheck(this)"><label for="ck6">Noted malt flavor, hop flavor, bitterness, and balance</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck7" onchange="toggleCheck(this)"><label for="ck7">Described finish (dry? sweet? bitter? lingering?)</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck8" onchange="toggleCheck(this)"><label for="ck8">Noted body, carbonation, warmth, texture in Mouthfeel</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck9" onchange="toggleCheck(this)"><label for="ck9">Identified any off-flavors and noted their likely causes</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck10" onchange="toggleCheck(this)"><label for="ck10">Wrote Overall Impression with strengths, weaknesses, and actionable fix</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck11" onchange="toggleCheck(this)"><label for="ck11">Assigned numeric score and cross-checked it against my comments</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck12" onchange="toggleCheck(this)"><label for="ck12">Completed within 15 minutes</label></div>
+  </div>
+</div>
+
+<!-- ==================== STUDY PLAN ==================== -->
+<div class="section" id="sec-plan">
+  <h2>17-Week Study Plan</h2>
+  <p>Your exam is July 18, 2026. That gives you roughly 17 weeks from today. Here's a structured plan that builds skills progressively. Aim for 3&ndash;5 hours per week.</p>
+
+  <div class="countdown">
+    <div class="countdown-number" id="countdown-weeks"></div>
+    <div class="countdown-label">weeks until exam day</div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Weeks 1&ndash;3: Foundation</strong> &mdash; Scoresheet mastery &amp; sensory basics</span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Read:</strong> BJCP Scoresheet Guide (bjcp.org), this study guide's Scoresheet section cover-to-cover.</p>
+      <p><strong>Memorize:</strong> The five scoresheet sections and point allocations. The scoring ranges (Problematic through Outstanding). Your writing templates for each section.</p>
+      <p><strong>Practice:</strong> Evaluate 2&ndash;3 commercial beers per week using full BJCP scoresheets. Don't worry about speed yet&mdash;focus on completeness. Compare your notes against the BJCP style guidelines.</p>
+      <p><strong>Sensory Training:</strong> Buy or make an off-flavor spiking kit (available from BJCP or homebrew suppliers). Spike a clean lager with diacetyl, acetaldehyde, DMS, and oxidation. Learn what each smells/tastes like at threshold and above.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Weeks 4&ndash;6: Building Vocabulary &amp; Style Knowledge</strong></span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Read:</strong> BJCP Style Guidelines&mdash;focus on the style families most likely to appear (American ales, English ales, German lagers, Belgian ales, wheat beers).</p>
+      <p><strong>Practice:</strong> Evaluate 3&ndash;4 beers per week across different style families. Start using the 15-minute timer. Write at least one scoresheet per session under timed conditions.</p>
+      <p><strong>Drill:</strong> Use the flashcards in this guide daily for off-flavor recall. Quiz yourself: "If I detect butter, what do I call it, what caused it, what's the fix?"</p>
+      <p><strong>Social:</strong> Attend a local homebrew club meeting or BJCP study group if available. Tasting with other people calibrates your palate and scoring.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Weeks 7&ndash;10: Timed Practice &amp; Feedback Quality</strong></span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Focus:</strong> Speed and feedback quality. Every practice session should be timed at 15 minutes per beer.</p>
+      <p><strong>Practice:</strong> Do at least two full 6-beer mock exams (90 minutes, 6 different beers). Recruit friends to pour for you blind so you don't know the styles in advance.</p>
+      <p><strong>Feedback drill:</strong> After each scoresheet, review your Overall Impression. Does it contain: (1) a style accuracy statement, (2) at least one positive note, (3) at least one specific brewing suggestion? If not, rewrite it.</p>
+      <p><strong>Calibration:</strong> Compare your numeric scores with experienced judges. If you're consistently 5+ points off, recalibrate using the anchor-at-30 method.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Weeks 11&ndash;14: Mock Exams &amp; Refinement</strong></span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Full mock exams:</strong> At least one per week. Ask an experienced BJCP judge to grade your scoresheets if possible.</p>
+      <p><strong>Identify weaknesses:</strong> Are you losing points on completeness (leaving sections thin)? Feedback (generic suggestions)? Perception (missing off-flavors)? Scoring accuracy (too generous or harsh)?</p>
+      <p><strong>Targeted practice:</strong> If completeness is weak, force yourself to write 3 sentences minimum per section. If perception is weak, repeat off-flavor spiking exercises. If scoring is off, practice calibration beers.</p>
+      <p><strong>Expand styles:</strong> Make sure you've evaluated beers from at least 10 different BJCP categories.</p>
+    </div></div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header">
+      <span><strong>Weeks 15&ndash;17: Final Prep &amp; Exam Readiness</strong></span>
+      <span class="arrow">&#9654;</span>
+    </button>
+    <div class="accordion-body"><div class="accordion-content">
+      <p><strong>Final mock exam:</strong> Do one last full 90-minute, 6-beer session in exam-like conditions (quiet room, fresh scoresheets, blind beers).</p>
+      <p><strong>Review:</strong> Re-read your templates. Review the off-flavor flashcards one more time. Skim the style guidelines for any categories you haven't covered.</p>
+      <p><strong>Logistics:</strong> Confirm your exam registration. Know the location, start time, and what to bring (pencils&mdash;bring extras).</p>
+      <p><strong>Rest:</strong> Don't cram the night before. Stay hydrated. Avoid strongly-flavored foods the morning of the exam. Eat a light, bland meal beforehand.</p>
+      <div class="card tip">
+        <div class="card-label">Exam Day Reminders</div>
+        <p>Bring: Multiple pencils/pens, water, plain crackers or bread for palate cleansing. Arrive early. During the exam, pace yourself&mdash;watch the clock after every second beer. If you're running behind, write shorter but still complete entries for the last beers. A shorter but complete scoresheet beats a half-finished detailed one.</p>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+</div><!-- end content -->
+
+<script>
+// ---- TAB NAVIGATION ----
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// ---- ACCORDIONS ----
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    header.parentElement.classList.toggle('open');
+  });
+});
+
+// ---- COUNTDOWN ----
+function updateCountdown() {
+  const exam = new Date('2026-07-18');
+  const now = new Date();
+  const diff = exam - now;
+  const days = Math.max(0, Math.ceil(diff / (1000*60*60*24)));
+  const weeks = Math.max(0, Math.ceil(days / 7));
+  document.getElementById('days-left').textContent = days + ' days';
+  document.getElementById('countdown-weeks').textContent = weeks;
+}
+updateCountdown();
+
+// ---- PROGRESS TRACKER ----
+function updateProgress() {
+  const checks = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+  const checked = [...checks].filter(c => c.checked).length;
+  const total = checks.length;
+  const pct = Math.round((checked / total) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function toggleCheck(el) {
+  el.closest('.checklist-item').classList.toggle('checked', el.checked);
+  updateProgress();
+}
+
+// ---- TIMER ----
+let timerInterval = null;
+let timerSeconds = 900;
+let timerRunning = false;
+let currentBeer = 1;
+
+function formatTime(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function updateTimerDisplay() {
+  document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+  document.getElementById('timer-beer-label').textContent = 'Beer ' + currentBeer + ' of 6';
+}
+
+function toggleTimer() {
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timer-start').textContent = 'Resume';
+  } else {
+    timerRunning = true;
+    document.getElementById('timer-start').textContent = 'Pause';
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        timerSeconds = 0;
+        document.getElementById('timer-start').textContent = 'Start';
+        document.getElementById('timer-display').style.color = '#C62828';
+      }
+      updateTimerDisplay();
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 900;
+  currentBeer = 1;
+  document.getElementById('timer-start').textContent = 'Start';
+  document.getElementById('timer-display').style.color = '';
+  updateTimerDisplay();
+}
+
+function nextBeer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  if (currentBeer < 6) currentBeer++;
+  timerSeconds = 900;
+  document.getElementById('timer-start').textContent = 'Start';
+  document.getElementById('timer-display').style.color = '';
+  updateTimerDisplay();
+}
+
+updateTimerDisplay();
+
+// ---- FLASHCARDS ----
+const flashcards = [
+  {front: "Diacetyl", back: "Tastes like: Butter, butterscotch\nCause: Premature yeast removal, insufficient diacetyl rest\nFix: Diacetyl rest at 65-68°F for 2-3 days before crashing"},
+  {front: "Oxidation", back: "Tastes like: Wet cardboard, paper, stale\nCause: O2 exposure post-fermentation\nFix: Purge vessels with CO2, minimize transfers, reduce headspace"},
+  {front: "Acetaldehyde", back: "Tastes like: Green apple, cidery\nCause: Green/young beer, premature packaging\nFix: Allow full fermentation and sufficient conditioning time"},
+  {front: "DMS (Dimethyl Sulfide)", back: "Tastes like: Cooked corn, creamed corn, cabbage\nCause: Covered boil, slow cooling, pale malt SMM\nFix: Vigorous uncovered boil for 60+ min, rapid chilling"},
+  {front: "Chlorophenol", back: "Tastes like: Band-Aid, plastic, medicinal\nCause: Chlorinated water + phenols, sanitizer residue\nFix: Use campden tablets to treat water, rinse sanitizer properly"},
+  {front: "Astringency", back: "Feels like: Dry, puckering, grape-skin-like (mouthfeel!)\nCause: Over-sparging, high mash pH, grain husks\nFix: Monitor mash pH (5.2-5.6), stop sparging at 1.010"},
+  {front: "Light-Struck (Skunky)", back: "Tastes like: Skunk, sulfur, cannabis-like\nCause: UV light + iso-alpha acids from hops\nFix: Use brown glass or cans, avoid light exposure"},
+  {front: "Fusel Alcohols", back: "Tastes like: Hot, solvent-like, harsh alcohol burn\nCause: High fermentation temp, under-pitching\nFix: Control ferm temp, pitch adequate healthy yeast"},
+  {front: "Acetic Acid", back: "Tastes like: Vinegar, sharp sourness\nCause: Acetobacter (needs O2), infection\nFix: Minimize O2 post-ferm, replace scratched plastic equipment"},
+  {front: "Phenolic (Desired)", back: "Tastes like: Clove, pepper, allspice, smoke\nExpected in: Hefeweizen, Saison, Belgian ales, Rauchbier\nNote: NOT a fault in these styles — it's yeast-derived character"}
+];
+
+let fcIndex = 0;
+
+function renderCard() {
+  const fc = flashcards[fcIndex];
+  document.getElementById('fc-front').textContent = fc.front;
+  document.getElementById('fc-back').innerHTML = fc.back.replace(/\n/g, '<br>');
+  document.getElementById('fc-counter').textContent = (fcIndex+1) + ' / ' + flashcards.length;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0;
+  renderCard();
+}
+renderCard();
+
+// ---- QUIZ ----
+const quizData = [
+  {q: "How many points is the Flavor section worth on a BJCP scoresheet?", opts: ["12", "15", "20", "10"], correct: 2, explain: "Flavor is worth 20 of 50 points — the most heavily weighted section."},
+  {q: "What off-flavor is described as 'wet cardboard' or 'papery'?", opts: ["Diacetyl", "Oxidation", "DMS", "Acetaldehyde"], correct: 1, explain: "Oxidation produces wet cardboard, paper, and stale bread aromas/flavors from post-fermentation oxygen exposure."},
+  {q: "Which section of the scoresheet should astringency be discussed in?", opts: ["Flavor", "Aroma", "Mouthfeel", "Overall Impression"], correct: 2, explain: "Astringency is a tactile, puckering sensation — it belongs in Mouthfeel, not Flavor."},
+  {q: "What is the minimum exam score needed to achieve Certified rank?", opts: ["60%", "65%", "70%", "75%"], correct: 2, explain: "You need 70% or higher on the tasting exam to earn Certified rank."},
+  {q: "How many beers are evaluated during the tasting exam?", opts: ["4 in 60 minutes", "6 in 90 minutes", "8 in 120 minutes", "5 in 75 minutes"], correct: 1, explain: "The exam requires judging 6 beers in 90 minutes — about 15 minutes per beer."},
+  {q: "A butter or butterscotch off-flavor is most likely caused by:", opts: ["Oxidation", "Acetaldehyde", "Diacetyl", "DMS"], correct: 2, explain: "Diacetyl produces butter and butterscotch flavors, typically from insufficient diacetyl rest during fermentation."},
+  {q: "Which of these is NOT one of the five exam grading components?", opts: ["Perception", "Style Knowledge", "Completeness", "Feedback"], correct: 1, explain: "The five components are: Scoring Accuracy, Perception, Descriptive Ability, Completeness, and Feedback. Style Knowledge is not a separate graded category."},
+  {q: "DMS in beer is best prevented by:", opts: ["Adding more hops", "A vigorous uncovered boil and rapid chilling", "Using a longer diacetyl rest", "Fermenting at lower temperatures"], correct: 1, explain: "DMS is driven off during a vigorous, uncovered boil and prevented from forming by rapid post-boil chilling."},
+  {q: "In a Hefeweizen, banana and clove character is:", opts: ["Always a fault", "Expected yeast character", "A sign of infection", "From the wheat malt"], correct: 1, explain: "Banana (isoamyl acetate) and clove (4-vinyl guaiacol) are signature yeast-derived characters in Hefeweizen — they are expected and desirable."},
+  {q: "What is the best 'anchor score' for calibrating your evaluations?", opts: ["25 — average beer", "30 — decent homebrew, no major flaws", "35 — good commercial beer", "40 — competition-winning beer"], correct: 1, explain: "30 is a solid anchor — it represents a decent homebrew with no major flaws. Adjust up or down from there based on quality."}
+];
+
+let quizAnswered = 0;
+let quizCorrect = 0;
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  quizAnswered = 0;
+  quizCorrect = 0;
+  document.getElementById('quiz-score').style.display = 'none';
+
+  quizData.forEach((item, qi) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-question';
+    div.innerHTML = '<p>' + (qi+1) + '. ' + item.q + '</p>';
+    item.opts.forEach((opt, oi) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = opt;
+      btn.onclick = () => answerQuiz(qi, oi, div);
+      div.appendChild(btn);
+    });
+    const fb = document.createElement('div');
+    fb.className = 'quiz-feedback';
+    fb.id = 'qfb-' + qi;
+    div.appendChild(fb);
+    container.appendChild(div);
+  });
+}
+
+function answerQuiz(qi, oi, div) {
+  const btns = div.querySelectorAll('.quiz-option');
+  if (btns[0].classList.contains('disabled')) return;
+  btns.forEach((b, i) => {
+    b.classList.add('disabled');
+    if (i === quizData[qi].correct) b.classList.add('correct');
+    if (i === oi && i !== quizData[qi].correct) b.classList.add('incorrect');
+  });
+  const fb = document.getElementById('qfb-' + qi);
+  const isCorrect = oi === quizData[qi].correct;
+  if (isCorrect) quizCorrect++;
+  quizAnswered++;
+  fb.className = 'quiz-feedback show ' + (isCorrect ? 'correct-fb' : 'incorrect-fb');
+  fb.textContent = (isCorrect ? 'Correct! ' : 'Incorrect. ') + quizData[qi].explain;
+
+  if (quizAnswered === quizData.length) {
+    const scoreDiv = document.getElementById('quiz-score');
+    scoreDiv.style.display = 'block';
+    const pct = Math.round((quizCorrect / quizData.length) * 100);
+    scoreDiv.innerHTML = '<h3>Quiz Complete!</h3><p>You scored <strong>' + quizCorrect + '/' + quizData.length + ' (' + pct + '%)</strong></p>' +
+      (pct >= 70 ? '<p style="color:var(--success)">On track for Certified!</p>' : '<p style="color:var(--warning)">Review the sections above and try again.</p>');
+  }
+}
+
+function resetQuiz() { buildQuiz(); }
+buildQuiz();
+</script>
+</body>
+</html>
