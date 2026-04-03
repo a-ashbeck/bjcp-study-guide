@@ -295,6 +295,138 @@
     .timer-display { font-size: 2.2rem; }
   }
 
+  /* Descriptor flashcard section */
+  .desc-controls {
+    display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center;
+    margin-bottom: 1.2rem; padding: 1rem; background: white;
+    border: 1px solid var(--border); border-radius: 8px;
+  }
+  .desc-controls label { font-size: 0.85rem; color: var(--text-light); }
+  .desc-select {
+    padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: 6px;
+    font-family: inherit; font-size: 0.85rem; background: white; color: var(--text);
+  }
+  .desc-mode-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .desc-mode-tab {
+    padding: 0.45rem 0.9rem; cursor: pointer; font-size: 0.82rem;
+    border: none; background: white; color: var(--text-light);
+    font-family: inherit; transition: all 0.2s;
+  }
+  .desc-mode-tab:not(:last-child) { border-right: 1px solid var(--border); }
+  .desc-mode-tab.active { background: var(--amber); color: white; font-weight: 600; }
+  .desc-mode-tab:hover:not(.active) { background: var(--foam); }
+
+  .desc-stats {
+    font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem; text-align: center;
+  }
+  .desc-stats strong { color: var(--amber-dark); }
+
+  .desc-flashcard-area { perspective: 1200px; margin: 1rem 0; }
+  .desc-flashcard {
+    width: 100%; min-height: 260px; cursor: pointer; position: relative;
+    transform-style: preserve-3d; transition: transform 0.5s; border-radius: 16px;
+  }
+  .desc-flashcard.flipped { transform: rotateY(180deg); }
+  .desc-fc-face {
+    position: absolute; inset: 0; backface-visibility: hidden;
+    border-radius: 16px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 2rem; text-align: center;
+  }
+  .desc-fc-front {
+    background: linear-gradient(145deg, white, var(--foam));
+    border: 2px solid var(--border);
+  }
+  .desc-fc-front .dfc-badge {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+    padding: 0.25rem 0.8rem; border-radius: 20px;
+    background: var(--amber); color: white; margin-bottom: 0.8rem;
+  }
+  .desc-fc-front .dfc-word {
+    font-size: 1.8rem; font-weight: 700; color: var(--stout); margin-bottom: 0.6rem;
+  }
+  .desc-fc-front .dfc-hint {
+    font-size: 0.9rem; color: var(--text-light); font-style: italic;
+  }
+  .desc-fc-back {
+    background: linear-gradient(145deg, var(--stout), #2d2d4e);
+    border: 2px solid var(--amber-dark); color: white;
+    transform: rotateY(180deg); text-align: left; padding: 1.8rem;
+  }
+  .desc-fc-back .dfcb-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--amber-light); margin-bottom: 0.3rem;
+  }
+  .desc-fc-back .dfcb-word {
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;
+    color: white; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 0.8rem;
+  }
+  .desc-fc-back .dfcb-styles { font-size: 0.95rem; line-height: 1.8; margin-bottom: 1rem; }
+  .desc-style-tag {
+    display: inline-block; background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+    padding: 0.15rem 0.6rem; margin: 0.15rem 0.2rem; font-size: 0.85rem; white-space: nowrap;
+  }
+  .desc-fc-back .dfcb-note {
+    font-size: 0.85rem; color: rgba(255,255,255,0.7);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 0.8rem; font-style: italic;
+  }
+
+  .desc-conf-row { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem; }
+  .dconf-btn {
+    padding: 0.45rem 1rem; border-radius: 6px; border: 1px solid var(--border);
+    cursor: pointer; font-family: inherit; font-size: 0.85rem; background: white; transition: all 0.2s;
+  }
+  .dconf-btn.dmiss { border-color: #ef9a9a; color: #c62828; }
+  .dconf-btn.dmiss:hover { background: #ffebee; }
+  .dconf-btn.dok { border-color: #ffe082; color: #e65100; }
+  .dconf-btn.dok:hover { background: #fff8e1; }
+  .dconf-btn.dgot { border-color: #a5d6a7; color: #2e7d32; }
+  .dconf-btn.dgot:hover { background: #e8f5e9; }
+
+  .desc-nav-row {
+    display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 1.2rem;
+  }
+
+  /* Descriptor quiz */
+  .dquiz-prompt { text-align: center; margin-bottom: 1.5rem; }
+  .dquiz-prompt .dqp-word { font-size: 1.6rem; font-weight: 700; color: var(--stout); margin-bottom: 0.3rem; }
+  .dquiz-prompt .dqp-section { font-size: 0.85rem; color: var(--amber-dark); }
+  .dquiz-opts { display: flex; flex-direction: column; gap: 0.5rem; }
+  .dquiz-opt {
+    display: block; width: 100%; text-align: left; padding: 0.8rem 1.2rem;
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+    background: white; font-family: inherit; font-size: 0.95rem; transition: all 0.2s;
+  }
+  .dquiz-opt:hover:not(.dq-disabled) { border-color: var(--amber); background: var(--foam); }
+  .dquiz-opt.dq-correct { border-color: var(--success); background: #e8f5e9; color: var(--success); }
+  .dquiz-opt.dq-incorrect { border-color: var(--warning); background: #fce4ec; color: var(--warning); }
+  .dquiz-opt.dq-disabled { pointer-events: none; }
+  .dquiz-opt.dq-reveal { border-color: var(--success); background: #e8f5e9; }
+  .dquiz-fb { margin-top: 1rem; padding: 1rem; border-radius: 8px; font-size: 0.9rem; display: none; }
+  .dquiz-fb.dqfb-show { display: block; }
+  .dquiz-fb.dqfb-correct { background: #e8f5e9; color: var(--success); }
+  .dquiz-fb.dqfb-incorrect { background: #fce4ec; color: var(--warning); }
+
+  /* Descriptor grid browse */
+  .desc-grid-section { margin-bottom: 2rem; }
+  .desc-grid-section h3 {
+    font-size: 1.1rem; color: var(--amber-dark); margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem; border-bottom: 2px solid var(--amber);
+  }
+  .desc-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.8rem;
+  }
+  .desc-grid-card {
+    background: white; border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem; transition: all 0.2s;
+  }
+  .desc-grid-card:hover { border-color: var(--amber); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .dgc-word { font-size: 1.05rem; font-weight: 700; color: var(--stout); margin-bottom: 0.3rem; }
+  .dgc-section { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--amber-dark); margin-bottom: 0.5rem; }
+  .dgc-styles { font-size: 0.85rem; color: var(--text-light); line-height: 1.5; }
+  .dgc-note { font-size: 0.8rem; color: var(--text-light); font-style: italic; margin-top: 0.4rem; border-top: 1px solid #f0ece4; padding-top: 0.4rem; }
+
   /* Print-friendly */
   @media print {
     .progress-bar-container, .nav-tabs, .timer-widget, .flashcard-nav { display: none; }
@@ -338,6 +470,7 @@
   <button class="nav-tab" data-tab="styles">Style Knowledge</button>
   <button class="nav-tab" data-tab="writing">Writing &amp; Feedback</button>
   <button class="nav-tab" data-tab="practice">Practice Tools</button>
+  <button class="nav-tab" data-tab="descriptors">Descriptor Cards</button>
   <button class="nav-tab" data-tab="plan">Study Plan</button>
 </div>
 
@@ -898,6 +1031,91 @@
   </div>
 </div>
 
+<!-- ==================== DESCRIPTOR CARDS ==================== -->
+<div class="section" id="sec-descriptors">
+  <h2>Descriptor &amp; Style Flashcards</h2>
+  <p>Learn which descriptors belong to which styles and where they go on the scoresheet. Use flashcards to study, quiz mode to test yourself, or browse all cards as a reference.</p>
+
+  <div class="desc-controls">
+    <div class="desc-mode-tabs">
+      <button class="desc-mode-tab active" data-dmode="dflash">Flashcards</button>
+      <button class="desc-mode-tab" data-dmode="dquiz">Style Quiz</button>
+      <button class="desc-mode-tab" data-dmode="dgrid">Browse All</button>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label>Category:</label>
+      <select class="desc-select" id="desc-cat-filter">
+        <option value="all">All Categories</option>
+        <option value="malt">Malt</option>
+        <option value="hops">Hops</option>
+        <option value="yeast">Yeast / Fermentation</option>
+        <option value="mouthfeel">Mouthfeel</option>
+        <option value="faults">Faults / Off-Flavors</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label>Direction:</label>
+      <select class="desc-select" id="desc-dir-filter">
+        <option value="desc-to-style">Descriptor &rarr; Styles</option>
+        <option value="style-to-desc">Style &rarr; Descriptors</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="desc-stats" id="desc-stats">
+    <strong id="dstat-total">0</strong> cards &nbsp;|&nbsp;
+    <span style="color:var(--success);">&#10003; <span id="dstat-got">0</span></span> &nbsp;
+    <span style="color:var(--warning);">~ <span id="dstat-ok">0</span></span> &nbsp;
+    <span style="color:#c62828;">&#10007; <span id="dstat-miss">0</span></span>
+  </div>
+
+  <!-- Flashcard sub-mode -->
+  <div id="desc-flash-mode">
+    <div class="desc-flashcard-area">
+      <div class="desc-flashcard" id="desc-flashcard" onclick="descFlip()">
+        <div class="desc-fc-face desc-fc-front">
+          <div class="dfc-badge" id="dfc-badge"></div>
+          <div class="dfc-word" id="dfc-word"></div>
+          <div class="dfc-hint">Click to reveal</div>
+        </div>
+        <div class="desc-fc-face desc-fc-back">
+          <div class="dfcb-label" id="dfcb-label">FOUND IN THESE STYLES</div>
+          <div class="dfcb-word" id="dfcb-word"></div>
+          <div class="dfcb-styles" id="dfcb-styles"></div>
+          <div class="dfcb-note" id="dfcb-note"></div>
+        </div>
+      </div>
+    </div>
+    <div class="desc-conf-row">
+      <button class="dconf-btn dmiss" onclick="descMark('miss')">&#10007; Missed</button>
+      <button class="dconf-btn dok" onclick="descMark('ok')">~ Shaky</button>
+      <button class="dconf-btn dgot" onclick="descMark('got')">&#10003; Got it</button>
+    </div>
+    <div class="desc-nav-row">
+      <button class="nav-btn secondary" onclick="descPrev()">&#8592; Prev</button>
+      <span class="counter" id="dfc-counter">1 / 0</span>
+      <button class="nav-btn secondary" onclick="descNext()">Next &#8594;</button>
+      <button class="nav-btn" onclick="descShuffle()">Shuffle</button>
+    </div>
+  </div>
+
+  <!-- Quiz sub-mode -->
+  <div id="desc-quiz-mode" style="display:none;">
+    <div class="dquiz-prompt">
+      <div class="dqp-section" id="dqz-section"></div>
+      <div class="dqp-word" id="dqz-word"></div>
+      <div style="font-size:1rem;color:var(--text-light);margin-top:0.5rem;">Which style would you expect this descriptor in?</div>
+    </div>
+    <div class="dquiz-opts" id="dqz-opts"></div>
+    <div class="dquiz-fb" id="dqz-fb"></div>
+    <button class="nav-btn" id="dqz-next" onclick="descQuizNext()" style="display:none;margin:1rem auto 0;">Next Question &#8594;</button>
+    <div class="quiz-score" id="dqz-score" style="display:none;"></div>
+  </div>
+
+  <!-- Grid/browse sub-mode -->
+  <div id="desc-grid-mode" style="display:none;"></div>
+</div>
+
 <!-- ==================== STUDY PLAN ==================== -->
 <div class="section" id="sec-plan">
   <h2>17-Week Study Plan</h2>
@@ -1193,6 +1411,343 @@ function answerQuiz(qi, oi, div) {
 
 function resetQuiz() { buildQuiz(); }
 buildQuiz();
+
+// ---- DESCRIPTOR FLASHCARDS ----
+const descCards = [
+  // MALT
+  {word:"Bready / Doughy", cat:"malt", section:"Aroma & Flavor",
+   styles:["German Pils","Munich Helles","Czech Premium Pale Lager","Kölsch","German Wheat Beer"],
+   note:"Fresh bread quality from Pilsner and Vienna malts. Hallmark of clean German lagers."},
+  {word:"Biscuity", cat:"malt", section:"Aroma & Flavor",
+   styles:["English Bitter","ESB","English IPA","Best Bitter","British Golden Ale"],
+   note:"Cracker-like, dry-baked quality. Classic English pale malt character (e.g., Maris Otter)."},
+  {word:"Toasty", cat:"malt", section:"Aroma & Flavor",
+   styles:["Vienna Lager","Märzen","Altbier","English Brown Ale","Scottish Ale"],
+   note:"Toast crust. From Vienna and Munich malts. Warmer than bready, lighter than caramel."},
+  {word:"Caramel / Toffee", cat:"malt", section:"Aroma & Flavor",
+   styles:["American Amber Ale","Irish Red Ale","ESB","Wee Heavy","English Barleywine","Doppelbock"],
+   note:"From crystal/caramel malts. Expected in malt-forward styles. Fault if cloying in balanced styles."},
+  {word:"Chocolate / Cocoa", cat:"malt", section:"Aroma & Flavor",
+   styles:["English Porter","American Porter","Sweet Stout","Robust Porter","Schwarzbier"],
+   note:"Unsweetened chocolate or cocoa. From chocolate malt or dark crystal. Distinct from coffee/roast."},
+  {word:"Coffee / Roasty", cat:"malt", section:"Aroma & Flavor",
+   styles:["Dry Stout","Foreign Extra Stout","Imperial Stout","American Stout","Oatmeal Stout"],
+   note:"Roasted barley or black malt. Signature of stouts. Acrid/burnt if overdone is a fault."},
+  {word:"Honey-like / Grainy", cat:"malt", section:"Aroma & Flavor",
+   styles:["Cream Ale","American Wheat","Blonde Ale","Munich Helles","Czech Pale Lager"],
+   note:"Delicate, lightly sweet grain character. Base malt showing through in lighter styles."},
+  {word:"Nutty", cat:"malt", section:"Aroma & Flavor",
+   styles:["English Brown Ale","Mild","Northern English Brown","Altbier","Dunkel"],
+   note:"Hazelnut, almond-like. From Munich malt or light crystal. Subtle, supporting, not dominant."},
+  {word:"Molasses / Dark Sugar", cat:"malt", section:"Aroma & Flavor",
+   styles:["Belgian Dubbel","Belgian Dark Strong","Wee Heavy","Old Ale","English Barleywine"],
+   note:"Dark candi sugar in Belgian styles; deeply kilned malts in British. Rich, complex sweetness."},
+  {word:"Pilsner Malt / Cracker", cat:"malt", section:"Aroma & Flavor",
+   styles:["German Pils","Czech Premium Pale Lager","Belgian Blonde","Belgian Tripel","Helles Bock"],
+   note:"Clean, light grain with dry cracker quality. Foundation of continental lagers and many Belgian ales."},
+
+  // HOPS
+  {word:"Citrus (Grapefruit, Orange)", cat:"hops", section:"Aroma & Flavor",
+   styles:["American IPA","American Pale Ale","West Coast IPA","Double IPA"],
+   note:"Signature of American C-hops (Cascade, Centennial, Citra). Defining character of American ales."},
+  {word:"Tropical (Mango, Passionfruit, Guava)", cat:"hops", section:"Aroma & Flavor",
+   styles:["New England IPA","American IPA","Double IPA","American Pale Ale"],
+   note:"Modern American/Southern Hemisphere hops (Citra, Galaxy, Mosaic, Nelson Sauvin). Dominant in NEIPA."},
+  {word:"Pine / Resinous", cat:"hops", section:"Aroma & Flavor",
+   styles:["American IPA","West Coast IPA","Double IPA","American Barleywine"],
+   note:"Simcoe, Chinook, Columbus. Often paired with citrus. Classic West Coast IPA profile."},
+  {word:"Floral / Perfumy", cat:"hops", section:"Aroma & Flavor",
+   styles:["German Pils","Kölsch","Czech Premium Pale Lager","English Bitter","English IPA"],
+   note:"Noble hops (Hallertau, Tettnang) and English hops (EKG, Fuggles). Elegant, not aggressive."},
+  {word:"Herbal / Grassy / Tea-like", cat:"hops", section:"Aroma & Flavor",
+   styles:["English Bitter","English IPA","Saison","Best Bitter","British Golden Ale"],
+   note:"English and some noble hops. Earthy and herbal. Grassy if very fresh or certain varieties."},
+  {word:"Spicy / Peppery (Hops)", cat:"hops", section:"Aroma & Flavor",
+   styles:["German Pils","Czech Premium Pale Lager","Belgian Blonde","Saison"],
+   note:"Noble hop spice (Saaz, Hallertau). NOT yeast-derived phenol spice — important distinction!"},
+  {word:"Dank / Catty", cat:"hops", section:"Aroma & Flavor",
+   styles:["American IPA","Double IPA","West Coast IPA"],
+   note:"Simcoe, CTZ. Cannabis-like, musky. Loved in hop-forward American styles."},
+  {word:"Stone Fruit (Peach, Apricot)", cat:"hops", section:"Aroma & Flavor",
+   styles:["American Pale Ale","American IPA","New England IPA","Blonde Ale"],
+   note:"Amarillo, Mosaic, Idaho 7. Can overlap with yeast esters — determine the source."},
+  {word:"Earthy / Woody", cat:"hops", section:"Aroma & Flavor",
+   styles:["English Bitter","ESB","English IPA","Old Ale","English Porter"],
+   note:"East Kent Goldings, Fuggles, Challenger. Defines English hop character."},
+
+  // YEAST / FERMENTATION
+  {word:"Banana (Isoamyl Acetate)", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Hefeweizen","Dunkelweizen","Weizenbock"],
+   note:"THE defining ester of Bavarian wheat beer yeast. Produced at warmer fermentation temps."},
+  {word:"Clove (4-Vinyl Guaiacol)", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Hefeweizen","Dunkelweizen","Witbier","Saison"],
+   note:"Yeast-derived PHENOL, not a spice. Expected in German wheat beers and some Belgian styles."},
+  {word:"Pear / Apple Esters", cat:"yeast", section:"Aroma & Flavor",
+   styles:["English Bitter","ESB","English IPA","English Porter","Mild"],
+   note:"English ale yeast signature. Subtle fruity esters from moderate fermentation temperatures."},
+  {word:"Bubblegum / Circus Peanut", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Belgian Dubbel","Belgian Tripel","Belgian Golden Strong","Belgian Blonde"],
+   note:"High-ester Belgian yeast character. Often combined with spicy phenols."},
+  {word:"Pepper / Spicy Phenol", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Saison","Belgian Blonde","Belgian Golden Strong","Witbier","Bière de Garde"],
+   note:"Yeast-derived, not hop-derived. Peppery, allspice-like. Critical to distinguish from hop spice."},
+  {word:"Dark Fruit (Plum, Raisin, Fig)", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Belgian Dubbel","Belgian Dark Strong","Quadrupel","English Barleywine","Old Ale","Wee Heavy"],
+   note:"From yeast esters and Maillard reactions in dark malts/sugars. Complexity, not a fault."},
+  {word:"Clean / Neutral", cat:"yeast", section:"Aroma & Flavor",
+   styles:["American Pale Ale","American IPA","American Lager","Cream Ale","Kölsch","All German Lagers"],
+   note:"American ale yeast or lager yeast. Yeast should be invisible, letting malt and hops dominate."},
+  {word:"Rose / Floral Ester", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Belgian Tripel","Belgian Golden Strong","Bière de Garde"],
+   note:"Delicate ester from certain Belgian strains. Adds complexity and elegance."},
+  {word:"Sulfur / Struck Match", cat:"yeast", section:"Aroma",
+   styles:["German Pils","Munich Helles","Czech Pale Lager","Dortmunder Export"],
+   note:"Normal in young lagers — should dissipate with conditioning. Persistent = fault."},
+  {word:"Brett / Barnyard Funk", cat:"yeast", section:"Aroma & Flavor",
+   styles:["Lambic","Gueuze","Flanders Red","Oud Bruin","American Wild Ale"],
+   note:"Brettanomyces character. Expected in sour/wild styles. Fault in any clean style."},
+
+  // MOUTHFEEL
+  {word:"Creamy / Silky", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["Oatmeal Stout","Sweet Stout","Milk Stout","Nitro Dry Stout","Hefeweizen"],
+   note:"From oats, lactose, nitrogen, or wheat proteins. Smooth, coating texture."},
+  {word:"Crisp / Dry", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["German Pils","Czech Premium Pale Lager","Saison","Dry Stout","Kölsch","Berliner Weisse"],
+   note:"High attenuation + carbonation. The snap and clean finish. Essential for Pils and Saison."},
+  {word:"Full / Chewy", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["Doppelbock","Imperial Stout","Barleywine","Wee Heavy","Belgian Dark Strong","Quadrupel"],
+   note:"High gravity = high body. Viscous, mouth-coating. Should be balanced by carbonation."},
+  {word:"Prickly / Effervescent", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["Saison","Belgian Tripel","Belgian Golden Strong","Witbier","Berliner Weisse","Gueuze"],
+   note:"High carbonation, sometimes champagne-like. Lifts the palate in Belgian/sour styles."},
+  {word:"Warming / Hot Alcohol", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["Imperial Stout","Barleywine","Belgian Dark Strong","Eisbock","Wheatwine"],
+   note:"Acceptable warming in high-ABV styles (8%+). 'Hot' or solvent-like = fusel alcohols = fault."},
+  {word:"Thin / Watery", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["American Light Lager","Berliner Weisse"],
+   note:"Only appropriate in very light styles. In most styles, thinness is a fault."},
+  {word:"Astringent / Puckering", cat:"mouthfeel", section:"Mouthfeel",
+   styles:[],
+   note:"Almost always a fault. From grain tannins, high pH, over-sparging. Note in MOUTHFEEL, not Flavor."},
+  {word:"Oily / Coating", cat:"mouthfeel", section:"Mouthfeel",
+   styles:["English Barleywine","Imperial Stout","Old Ale","Scotch Ale / Wee Heavy"],
+   note:"Lipid-rich, coating sensation. Acceptable in rich, aged strong ales."},
+
+  // FAULTS
+  {word:"Butter / Butterscotch (Diacetyl)", cat:"faults", section:"Aroma & Flavor",
+   styles:["English Bitter (very low)","Czech Lager (very low)","Scottish Ale (very low)"],
+   note:"Low levels tolerated in some English/Czech styles. Always fault in American/German. Fix: diacetyl rest 65-68°F."},
+  {word:"Wet Cardboard / Paper (Oxidation)", cat:"faults", section:"Aroma",
+   styles:[],
+   note:"Never acceptable. Fix: minimize O2 during transfers and packaging, purge vessels with CO2."},
+  {word:"Green Apple (Acetaldehyde)", cat:"faults", section:"Aroma & Flavor",
+   styles:["American Light Lager (trace)"],
+   note:"Almost always a fault — beer is too young. Fix: allow full fermentation and conditioning."},
+  {word:"Cooked Corn / Creamed Corn (DMS)", cat:"faults", section:"Aroma",
+   styles:["American Lager (very low)"],
+   note:"Minor levels tolerated in light lagers. Fix: vigorous uncovered boil 60+ min, rapid chilling."},
+  {word:"Band-Aid / Plastic (Chlorophenol)", cat:"faults", section:"Aroma & Flavor",
+   styles:[],
+   note:"Always a severe fault. Fix: campden tablets for water treatment, replace chlorine sanitizers."},
+  {word:"Skunk / Light-Struck", cat:"faults", section:"Aroma",
+   styles:[],
+   note:"Always a fault. UV + iso-alpha acids. Fix: brown bottles or cans, protect from light."},
+  {word:"Vinegar / Acetic", cat:"faults", section:"Aroma & Flavor",
+   styles:["Flanders Red (moderate)","Lambic (moderate)","American Wild Ale"],
+   note:"Expected in sour styles. Fault in any clean style. Indicates Acetobacter contamination."},
+  {word:"Solvent / Nail Polish (Ethyl Acetate)", cat:"faults", section:"Aroma",
+   styles:["Lambic (low)"],
+   note:"High-temp fermentation, stressed yeast, or infection. Fault in nearly all styles."},
+  {word:"Metallic", cat:"faults", section:"Flavor",
+   styles:[],
+   note:"Always a fault. Iron, blood-like. From poor water, unprotected metals, or yeast autolysis."},
+  {word:"Vegetal / Cooked Cabbage", cat:"faults", section:"Aroma & Flavor",
+   styles:[],
+   note:"Extreme DMS or aged hops. Always a fault. Fix: vigorous boil, rapid chill, fresh ingredients."},
+];
+
+let descDeck = [...descCards];
+let descIdx = 0;
+let descConf = {};
+let descDir = 'desc-to-style';
+let dQuizIdx = 0;
+let dQuizCorrect = 0;
+let dQuizDeck = [];
+
+// Descriptor flashcard rendering
+function descApplyFilter() {
+  const cat = document.getElementById('desc-cat-filter').value;
+  descDeck = descCards.filter(c => cat === 'all' || c.cat === cat);
+  descIdx = 0;
+  descRenderCard();
+  descUpdateStats();
+}
+
+function descRenderCard() {
+  if (descDeck.length === 0) return;
+  const c = descDeck[descIdx];
+  document.getElementById('desc-flashcard').classList.remove('flipped');
+  if (descDir === 'desc-to-style') {
+    document.getElementById('dfc-badge').textContent = c.section;
+    document.getElementById('dfc-word').textContent = c.word;
+    document.getElementById('dfcb-label').textContent = 'FOUND IN THESE STYLES';
+    document.getElementById('dfcb-word').textContent = c.word;
+    document.getElementById('dfcb-styles').innerHTML = c.styles.length > 0
+      ? c.styles.map(s => '<span class="desc-style-tag">' + s + '</span>').join(' ')
+      : '<span style="opacity:0.6;">Not expected in any style (always a fault)</span>';
+  } else {
+    const sl = c.styles.length > 0 ? c.styles[Math.floor(Math.random()*c.styles.length)] : 'Fault — No Style';
+    document.getElementById('dfc-badge').textContent = c.cat.charAt(0).toUpperCase() + c.cat.slice(1);
+    document.getElementById('dfc-word').textContent = sl;
+    document.getElementById('dfcb-label').textContent = 'KEY DESCRIPTOR';
+    document.getElementById('dfcb-word').textContent = c.word;
+    document.getElementById('dfcb-styles').innerHTML = c.styles.map(s => '<span class="desc-style-tag">' + s + '</span>').join(' ');
+  }
+  document.getElementById('dfcb-note').textContent = c.note;
+  document.getElementById('dfc-counter').textContent = (descIdx+1) + ' / ' + descDeck.length;
+}
+
+function descFlip() { document.getElementById('desc-flashcard').classList.toggle('flipped'); }
+function descNext() { if (descDeck.length === 0) return; descIdx = (descIdx+1) % descDeck.length; descRenderCard(); }
+function descPrev() { if (descDeck.length === 0) return; descIdx = (descIdx-1+descDeck.length) % descDeck.length; descRenderCard(); }
+function descShuffle() {
+  for (let i = descDeck.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [descDeck[i], descDeck[j]] = [descDeck[j], descDeck[i]]; }
+  descIdx = 0; descRenderCard();
+}
+function descMark(level) {
+  if (descDeck.length === 0) return;
+  descConf[descDeck[descIdx].word] = level;
+  descUpdateStats(); descNext();
+}
+function descUpdateStats() {
+  document.getElementById('dstat-total').textContent = descDeck.length;
+  let g=0, o=0, m=0;
+  descDeck.forEach(c => { const v = descConf[c.word]; if(v==='got')g++; else if(v==='ok')o++; else if(v==='miss')m++; });
+  document.getElementById('dstat-got').textContent = g;
+  document.getElementById('dstat-ok').textContent = o;
+  document.getElementById('dstat-miss').textContent = m;
+}
+
+// Descriptor quiz
+function descBuildQuiz() {
+  const cat = document.getElementById('desc-cat-filter').value;
+  const pool = descCards.filter(c => (cat === 'all' || c.cat === cat) && c.styles.length > 0);
+  const shuffled = [...pool].sort(() => Math.random()-0.5).slice(0,10);
+  dQuizDeck = [];
+  shuffled.forEach(card => {
+    const correctStyle = card.styles[Math.floor(Math.random()*card.styles.length)];
+    const others = [...new Set(descCards.filter(c => c !== card && c.styles.length > 0).flatMap(c => c.styles).filter(s => !card.styles.includes(s)))].sort(() => Math.random()-0.5).slice(0,3);
+    const opts = [correctStyle, ...others].sort(() => Math.random()-0.5);
+    dQuizDeck.push({card, correctStyle, opts, ci: opts.indexOf(correctStyle)});
+  });
+  dQuizIdx = 0; dQuizCorrect = 0;
+  document.getElementById('dqz-score').style.display = 'none';
+  descRenderQuizQ();
+}
+
+function descRenderQuizQ() {
+  if (dQuizIdx >= dQuizDeck.length) { descShowQuizScore(); return; }
+  const q = dQuizDeck[dQuizIdx];
+  document.getElementById('dqz-section').textContent = q.card.section + ' — ' + q.card.cat;
+  document.getElementById('dqz-word').textContent = q.card.word;
+  const cont = document.getElementById('dqz-opts');
+  cont.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dquiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => descAnswerQuiz(i);
+    cont.appendChild(btn);
+  });
+  document.getElementById('dqz-fb').className = 'dquiz-fb';
+  document.getElementById('dqz-fb').style.display = 'none';
+  document.getElementById('dqz-next').style.display = 'none';
+}
+
+function descAnswerQuiz(chosen) {
+  const q = dQuizDeck[dQuizIdx];
+  const btns = document.querySelectorAll('#dqz-opts .dquiz-opt');
+  btns.forEach((b, i) => { b.classList.add('dq-disabled'); if (i===q.ci) b.classList.add('dq-correct'); if (i===chosen && chosen!==q.ci) b.classList.add('dq-incorrect'); });
+  const isCorrect = chosen === q.ci;
+  if (isCorrect) dQuizCorrect++;
+  const fb = document.getElementById('dqz-fb');
+  fb.className = 'dquiz-fb dqfb-show ' + (isCorrect ? 'dqfb-correct' : 'dqfb-incorrect');
+  fb.textContent = (isCorrect ? 'Correct! ' : 'Incorrect. ') + q.card.note;
+  fb.style.display = 'block';
+  document.getElementById('dqz-next').style.display = 'block';
+}
+
+function descQuizNext() { dQuizIdx++; descRenderQuizQ(); }
+
+function descShowQuizScore() {
+  document.getElementById('dqz-opts').innerHTML = '';
+  document.getElementById('dqz-word').textContent = '';
+  document.getElementById('dqz-section').textContent = '';
+  document.getElementById('dqz-fb').style.display = 'none';
+  document.getElementById('dqz-next').style.display = 'none';
+  const pct = Math.round((dQuizCorrect/dQuizDeck.length)*100);
+  const d = document.getElementById('dqz-score');
+  d.style.display = 'block';
+  d.innerHTML = '<h3>Quiz Complete!</h3><p><strong>' + dQuizCorrect + '/' + dQuizDeck.length + ' (' + pct + '%)</strong></p>' +
+    (pct >= 80 ? '<p style="color:var(--success);">Strong style knowledge!</p>' :
+     pct >= 60 ? '<p style="color:var(--warning);">Getting there — keep reviewing the cards.</p>' :
+     '<p style="color:#c62828;">More practice needed. Try browsing first, then retake.</p>') +
+    '<button class="nav-btn" onclick="descBuildQuiz()" style="margin-top:1rem;">Try Again</button>';
+}
+
+// Descriptor grid browse
+function descBuildGrid() {
+  const cat = document.getElementById('desc-cat-filter').value;
+  const filtered = descCards.filter(c => cat === 'all' || c.cat === cat);
+  const groups = {};
+  filtered.forEach(c => { if (!groups[c.cat]) groups[c.cat] = []; groups[c.cat].push(c); });
+  const names = {malt:'Malt Descriptors', hops:'Hop Descriptors', yeast:'Yeast / Fermentation', mouthfeel:'Mouthfeel', faults:'Faults / Off-Flavors'};
+  const cont = document.getElementById('desc-grid-mode');
+  cont.innerHTML = '';
+  ['malt','hops','yeast','mouthfeel','faults'].forEach(k => {
+    if (!groups[k]) return;
+    const sec = document.createElement('div');
+    sec.className = 'desc-grid-section';
+    sec.innerHTML = '<h3>' + names[k] + '</h3>';
+    const grid = document.createElement('div');
+    grid.className = 'desc-grid';
+    groups[k].forEach(c => {
+      const card = document.createElement('div');
+      card.className = 'desc-grid-card';
+      card.innerHTML = '<div class="dgc-word">' + c.word + '</div><div class="dgc-section">' + c.section + '</div><div class="dgc-styles">' + (c.styles.length > 0 ? c.styles.join(', ') : '<em>Fault — no style</em>') + '</div><div class="dgc-note">' + c.note + '</div>';
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    cont.appendChild(sec);
+  });
+}
+
+// Descriptor mode switching
+document.querySelectorAll('.desc-mode-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.desc-mode-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const m = tab.dataset.dmode;
+    document.getElementById('desc-flash-mode').style.display = m === 'dflash' ? 'block' : 'none';
+    document.getElementById('desc-quiz-mode').style.display = m === 'dquiz' ? 'block' : 'none';
+    document.getElementById('desc-grid-mode').style.display = m === 'dgrid' ? 'block' : 'none';
+    if (m === 'dgrid') descBuildGrid();
+    if (m === 'dquiz') descBuildQuiz();
+  });
+});
+
+document.getElementById('desc-cat-filter').addEventListener('change', () => {
+  descApplyFilter();
+  const m = document.querySelector('.desc-mode-tab.active').dataset.dmode;
+  if (m === 'dgrid') descBuildGrid();
+  if (m === 'dquiz') descBuildQuiz();
+});
+document.getElementById('desc-dir-filter').addEventListener('change', () => {
+  descDir = document.getElementById('desc-dir-filter').value;
+  descRenderCard();
+});
+
+descApplyFilter();
 </script>
 </body>
 </html>
